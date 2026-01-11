@@ -810,7 +810,10 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
                                     <div className="flex items-center gap-4 mt-10">
                                         {/* Navigation Arrows */}
                                         <button
-                                            onClick={() => setActivePlayerIndex((prev) => prev === 0 ? 1 : 0)}
+                                            onClick={() => {
+                                                setActivePlayerIndex((prev) => prev === 0 ? 1 : 0);
+                                                setActiveVideoIndex((prev) => prev === 0 ? 1 : 0);
+                                            }}
                                             className="w-10 h-10 rounded-full bg-slate-800 hover:bg-lime-400 hover:text-black text-gray-400 flex items-center justify-center transition-all"
                                             aria-label="Previous player"
                                         >
@@ -820,18 +823,24 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
                                             {[0, 1].map((i: number) => (
                                                 <button
                                                     key={i}
-                                                    onClick={() => setActivePlayerIndex(i)}
+                                                    onClick={() => {
+                                                        setActivePlayerIndex(i);
+                                                        setActiveVideoIndex(i);
+                                                    }}
                                                     className={`h-2 rounded-full transition-all ${activePlayerIndex === i ? 'bg-lime-400 w-8' : 'bg-slate-700 w-2'}`}
                                                     aria-label={`Player ${i + 1}`}
                                                 />
                                             ))}
                                         </div>
                                         <button
-                                            onClick={() => setActivePlayerIndex((prev) => prev === 0 ? 1 : 0)}
-                                            className="w-10 h-10 rounded-full bg-slate-800 hover:bg-lime-400 hover:text-black text-gray-400 flex items-center justify-center transition-all"
+                                            onClick={() => {
+                                                setActivePlayerIndex((prev) => prev === 0 ? 1 : 0);
+                                                setActiveVideoIndex((prev) => prev === 0 ? 1 : 0);
+                                            }}
+                                            className="h-10 px-6 rounded-full bg-lime-500 text-white font-bold uppercase tracking-wider hover:bg-lime-400 transition-all text-sm"
                                             aria-label="Next player"
                                         >
-                                            →
+                                            ЛИСТАЙ
                                         </button>
                                     </div>
                                 </div>
@@ -862,7 +871,10 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
                         {/* Navigation */}
                         <div className="flex items-center justify-center gap-4 mt-8">
                             <button
-                                onClick={() => setActiveVideoIndex((prev) => prev === 0 ? 1 : 0)}
+                                onClick={() => {
+                                    setActiveVideoIndex((prev) => prev === 0 ? 1 : 0);
+                                    setActivePlayerIndex((prev) => prev === 0 ? 1 : 0);
+                                }}
                                 className="w-10 h-10 rounded-full bg-slate-800 hover:bg-lime-400 hover:text-black text-gray-400 flex items-center justify-center transition-all"
                                 aria-label="Previous video"
                             >
@@ -872,14 +884,20 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
                                 {[0, 1].map((i: number) => (
                                     <button
                                         key={i}
-                                        onClick={() => setActiveVideoIndex(i)}
+                                        onClick={() => {
+                                            setActiveVideoIndex(i);
+                                            setActivePlayerIndex(i);
+                                        }}
                                         className={`h-2 rounded-full transition-all ${activeVideoIndex === i ? 'bg-lime-400 w-8' : 'bg-slate-700 w-2'}`}
                                         aria-label={`Video ${i + 1}`}
                                     />
                                 ))}
                             </div>
                             <button
-                                onClick={() => setActiveVideoIndex((prev) => prev === 0 ? 1 : 0)}
+                                onClick={() => {
+                                    setActiveVideoIndex((prev) => prev === 0 ? 1 : 0);
+                                    setActivePlayerIndex((prev) => prev === 0 ? 1 : 0);
+                                }}
                                 className="w-10 h-10 rounded-full bg-slate-800 hover:bg-lime-400 hover:text-black text-gray-400 flex items-center justify-center transition-all"
                                 aria-label="Next video"
                             >
