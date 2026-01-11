@@ -409,6 +409,12 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
     const data = landingPageData[citySlug];
     const [isScrolled, setIsScrolled] = useState(false);
     const [activePlayerIndex, setActivePlayerIndex] = useState(0);
+    const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+
+    const youtubeShorts = [
+        { id: 'dwUEI9vv8IE', title: 'YouTube Short 1' },
+        { id: 'a0FJGeqM7Ho', title: 'YouTube Short 2' }
+    ];
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -761,19 +767,19 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
             {/* Players Section */}
             <section className="py-20 bg-slate-900">
                 <div className="max-w-6xl mx-auto px-4">
-                    <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">{data.winners.title}</h2>
-                    <p className="text-gray-400 text-center text-lg mb-6">{data.winners.description}</p>
+                    <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">Куда поедут лучшие игроки</h2>
+                    <p className="text-gray-400 text-center text-lg mb-6">10 Лучших игроков будут приглашены на просмотр в академию Real Murcia по своему возрасту и уровню подготовки.</p>
 
                     {/* Highlighted text with green border */}
                     <div className="max-w-3xl mx-auto mb-8">
                         <div className="relative bg-gradient-to-r from-lime-500/10 via-lime-400/10 to-lime-500/10 border-2 border-lime-500 rounded-2xl p-6 shadow-[0_0_30px_rgba(132,204,22,0.2)]">
                             <div className="absolute inset-0 bg-gradient-to-b from-lime-500/5 to-transparent rounded-2xl"></div>
-                            <p className="relative text-white text-center font-bold text-lg">{data.winners.highlight}</p>
+                            <p className="relative text-white text-center font-bold text-lg">Самых талантливых агентство возьмет, покрыв все расходы (кроме перелета).</p>
                         </div>
                     </div>
 
                     {/* CTA Button */}
-                    <div className="text-center mb-12">
+                    <div className="text-center mb-16">
                         <button
                             onClick={handleCTAClick}
                             className="bg-gradient-to-r from-lime-500 via-lime-400 to-lime-500 hover:from-lime-400 hover:via-lime-300 hover:to-lime-400 text-black font-bold py-4 px-12 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-[0_0_30px_rgba(132,204,22,0.4)]"
@@ -782,7 +788,10 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
                         </button>
                     </div>
 
-                    {/* Player Carousel */}
+                    {/* New Title */}
+                    <h3 className="text-2xl md:text-3xl font-bold text-white text-center mb-12">Наши игроки подписавшие контракт с Real Murcia</h3>
+
+                    {/* Player Carousel - Only Alexander and David */}
                     <div className="relative group">
                         <div className="flex overflow-hidden rounded-3xl border border-slate-800 bg-black/20">
                             <div className="grid md:grid-cols-2 w-full">
@@ -807,14 +816,14 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
                                     <div className="flex items-center gap-4 mt-10">
                                         {/* Navigation Arrows */}
                                         <button
-                                            onClick={() => setActivePlayerIndex((prev) => prev === 0 ? data.players.length - 1 : prev - 1)}
+                                            onClick={() => setActivePlayerIndex((prev) => prev === 0 ? 1 : 0)}
                                             className="w-10 h-10 rounded-full bg-slate-800 hover:bg-lime-400 hover:text-black text-gray-400 flex items-center justify-center transition-all"
                                             aria-label="Previous player"
                                         >
                                             ←
                                         </button>
                                         <div className="flex gap-2 flex-1 justify-center">
-                                            {data.players.map((_: any, i: number) => (
+                                            {[0, 1].map((i: number) => (
                                                 <button
                                                     key={i}
                                                     onClick={() => setActivePlayerIndex(i)}
@@ -824,7 +833,7 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
                                             ))}
                                         </div>
                                         <button
-                                            onClick={() => setActivePlayerIndex((prev) => (prev + 1) % data.players.length)}
+                                            onClick={() => setActivePlayerIndex((prev) => prev === 0 ? 1 : 0)}
                                             className="w-10 h-10 rounded-full bg-slate-800 hover:bg-lime-400 hover:text-black text-gray-400 flex items-center justify-center transition-all"
                                             aria-label="Next player"
                                         >
@@ -833,6 +842,55 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* YouTube Shorts Section */}
+            <section className="py-20 bg-slate-800/30">
+                <div className="max-w-6xl mx-auto px-4">
+                    <h3 className="text-2xl md:text-3xl font-bold text-white text-center mb-12">Смотри короткие видео</h3>
+
+                    <div className="relative group max-w-md mx-auto">
+                        <div className="flex overflow-hidden rounded-3xl border border-slate-800 bg-black/20">
+                            <div className="w-full aspect-[9/16]">
+                                <iframe
+                                    className="w-full h-full"
+                                    src={`https://www.youtube.com/embed/${youtubeShorts[activeVideoIndex].id}?autoplay=0&mute=0`}
+                                    title={youtubeShorts[activeVideoIndex].title}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+                        </div>
+
+                        {/* Navigation */}
+                        <div className="flex items-center justify-center gap-4 mt-8">
+                            <button
+                                onClick={() => setActiveVideoIndex((prev) => prev === 0 ? 1 : 0)}
+                                className="w-10 h-10 rounded-full bg-slate-800 hover:bg-lime-400 hover:text-black text-gray-400 flex items-center justify-center transition-all"
+                                aria-label="Previous video"
+                            >
+                                ←
+                            </button>
+                            <div className="flex gap-2">
+                                {[0, 1].map((i: number) => (
+                                    <button
+                                        key={i}
+                                        onClick={() => setActiveVideoIndex(i)}
+                                        className={`h-2 rounded-full transition-all ${activeVideoIndex === i ? 'bg-lime-400 w-8' : 'bg-slate-700 w-2'}`}
+                                        aria-label={`Video ${i + 1}`}
+                                    />
+                                ))}
+                            </div>
+                            <button
+                                onClick={() => setActiveVideoIndex((prev) => prev === 0 ? 1 : 0)}
+                                className="w-10 h-10 rounded-full bg-slate-800 hover:bg-lime-400 hover:text-black text-gray-400 flex items-center justify-center transition-all"
+                                aria-label="Next video"
+                            >
+                                →
+                            </button>
                         </div>
                     </div>
                 </div>
