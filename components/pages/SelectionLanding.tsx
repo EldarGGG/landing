@@ -767,28 +767,6 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
             {/* Players Section */}
             <section className="py-20 bg-slate-900">
                 <div className="max-w-6xl mx-auto px-4">
-                    <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">Куда поедут лучшие игроки</h2>
-                    <p className="text-gray-400 text-center text-lg mb-6">10 Лучших игроков будут приглашены на просмотр в академию Real Murcia по своему возрасту и уровню подготовки.</p>
-
-                    {/* Highlighted text with green border */}
-                    <div className="max-w-3xl mx-auto mb-8">
-                        <div className="relative bg-gradient-to-r from-lime-500/10 via-lime-400/10 to-lime-500/10 border-2 border-lime-500 rounded-2xl p-6 shadow-[0_0_30px_rgba(132,204,22,0.2)]">
-                            <div className="absolute inset-0 bg-gradient-to-b from-lime-500/5 to-transparent rounded-2xl"></div>
-                            <p className="relative text-white text-center font-bold text-lg">Самых талантливых агентство возьмет, покрыв все расходы (кроме перелета).</p>
-                        </div>
-                    </div>
-
-                    {/* CTA Button */}
-                    <div className="text-center mb-16">
-                        <button
-                            onClick={handleCTAClick}
-                            className="bg-gradient-to-r from-lime-500 via-lime-400 to-lime-500 hover:from-lime-400 hover:via-lime-300 hover:to-lime-400 text-black font-bold py-4 px-12 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-[0_0_30px_rgba(132,204,22,0.4)]"
-                        >
-                            Подать заявку на отбор
-                        </button>
-                    </div>
-
-                    {/* New Title */}
                     <h3 className="text-2xl md:text-3xl font-bold text-white text-center mb-12">Наши игроки подписавшие контракт с Real Murcia</h3>
 
                     {/* Player Carousel - Only Alexander and David */}
