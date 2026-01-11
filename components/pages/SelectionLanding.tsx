@@ -436,7 +436,7 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
     };
 
     // Calculate target date based on city
-    const targetDate = citySlug === 'astana' ? '2025-02-27' : '2025-03-03';
+    const targetDate = citySlug === 'astana' ? '2025-02-27' : '2026-03-13';
 
     return (
         <div className="bg-slate-900 min-h-screen">
@@ -724,6 +724,22 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
                 <div className="max-w-4xl mx-auto px-4 text-center">
                     <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{data.timer.title}</h2>
                     <CountdownTimer targetDate={targetDate} />
+                </div>
+            </section>
+
+            {/* CTA Section after Timer */}
+            <section className="py-24 bg-slate-900">
+                <div className="max-w-4xl mx-auto px-4 text-center">
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-8 leading-tight">
+                        {data.ctaSection.title}
+                    </h2>
+
+                    <button
+                        onClick={handleCTAClick}
+                        className="bg-gradient-to-r from-lime-500 via-lime-400 to-lime-500 hover:from-lime-400 hover:via-lime-300 hover:to-lime-400 text-black font-bold py-5 px-12 rounded-xl text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_50px_rgba(132,204,22,0.5)]"
+                    >
+                        {data.ctaSection.button}
+                    </button>
                 </div>
             </section>
 
