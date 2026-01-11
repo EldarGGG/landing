@@ -61,7 +61,7 @@ const CountdownTimer: React.FC<{ targetDate: string }> = ({ targetDate }) => {
 const ScoutCard: React.FC<{ scout: any; index: number }> = ({ scout, index }) => {
     return (
         <div
-            className="group bg-gradient-to-b from-slate-800/80 to-slate-900/80 backdrop-blur-sm border border-lime-500/20 rounded-2xl overflow-hidden transition-all duration-500 hover:border-lime-500/50 hover:shadow-[0_0_40px_rgba(132,204,22,0.2)] animate-slide-in"
+            className="group bg-gradient-to-b from-slate-800/80 to-slate-900/80 backdrop-blur-sm border border-lime-500/20 rounded-2xl overflow-hidden transition-all duration-500 hover:border-lime-500/50 hover:shadow-[0_0_40px_rgba(132,204,22,0.2)] scroll-animate opacity-0 translate-y-8"
             style={{ animationDelay: `${index * 150}ms` }}
         >
             <div className="aspect-[3/4] relative overflow-hidden">
@@ -275,7 +275,8 @@ const StatisticsBlock: React.FC<{ statistics: any }> = ({ statistics }) => {
                 {statistics.items.map((item: any, index: number) => (
                     <div
                         key={index}
-                        className="bg-gradient-to-b from-slate-800 to-slate-900 border border-lime-500/30 rounded-xl p-4 md:p-6"
+                        className="bg-gradient-to-b from-slate-800 to-slate-900 border border-lime-500/30 rounded-xl p-4 md:p-6 scroll-animate opacity-0 translate-y-8"
+                        style={{ animationDelay: `${index * 100}ms` }}
                     >
                         <div className="text-3xl md:text-4xl font-black bg-gradient-to-b from-lime-400 to-lime-600 bg-clip-text text-transparent">
                             {item.value}
@@ -326,16 +327,16 @@ const DestinationSection: React.FC<{ destination: any; onCTA: () => void }> = ({
     return (
         <section className="py-20 bg-gradient-to-b from-slate-900 via-slate-800/50 to-slate-900 border-y border-lime-500/10">
             <div className="max-w-4xl mx-auto px-4 text-center">
-                <span className="inline-block bg-lime-500/10 border border-lime-500/30 text-lime-400 text-sm font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider">
+                <span className="inline-block bg-lime-500/10 border border-lime-500/30 text-lime-400 text-sm font-bold px-4 py-1.5 rounded-full mb-6 uppercase tracking-wider scroll-animate opacity-0 translate-y-8">
                     ГЛАВНЫЙ ПРИЗ
                 </span>
-                <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
+                <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight scroll-animate opacity-0 translate-y-8" style={{ animationDelay: '100ms' }}>
                     {destination.title}
                 </h2>
-                <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8 leading-relaxed">
+                <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8 leading-relaxed scroll-animate opacity-0 translate-y-8" style={{ animationDelay: '200ms' }}>
                     {destination.text}
                 </p>
-                <div className="bg-gradient-to-r from-lime-900/20 via-lime-500/10 to-lime-900/20 border border-lime-500/30 rounded-2xl p-6 md:p-8 mb-10 max-w-3xl mx-auto backdrop-blur-sm">
+                <div className="bg-gradient-to-r from-lime-900/20 via-lime-500/10 to-lime-900/20 border border-lime-500/30 rounded-2xl p-6 md:p-8 mb-10 max-w-3xl mx-auto backdrop-blur-sm scroll-animate opacity-0 translate-y-8" style={{ animationDelay: '300ms' }}>
                     <p className="text-lg md:text-xl text-white font-bold leading-relaxed">
                         <span className="text-lime-400 block mb-2 text-2xl">WOW:</span>
                         {destination.highlight}
@@ -343,7 +344,8 @@ const DestinationSection: React.FC<{ destination: any; onCTA: () => void }> = ({
                 </div>
                 <button
                     onClick={onCTA}
-                    className="group relative inline-flex items-center justify-center gap-3 bg-lime-500 hover:bg-lime-400 text-black font-bold py-4 px-10 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-[0_0_30px_rgba(132,204,22,0.3)]"
+                    className="group relative inline-flex items-center justify-center gap-3 bg-lime-500 hover:bg-lime-400 text-black font-bold py-4 px-10 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-[0_0_30px_rgba(132,204,22,0.3)] scroll-animate opacity-0 translate-y-8"
+                    style={{ animationDelay: '400ms' }}
                 >
                     <span>{destination.button}</span>
                     <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -430,6 +432,32 @@ const SelectionLanding: React.FC<SelectionLandingProps> = ({ citySlug }) => {
     if (!data) {
         return <div className="min-h-screen bg-slate-900 flex items-center justify-center text-white">Данные не найдены</div>;
     }
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('opacity-0', 'translate-y-8');
+                        entry.target.classList.add('animate-slide-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.1 }
+        );
+
+        // Slight delay to ensure DOM is ready
+        const timeout = setTimeout(() => {
+            const elements = document.querySelectorAll('.scroll-animate');
+            elements.forEach((el) => observer.observe(el));
+        }, 100);
+
+        return () => {
+            clearTimeout(timeout);
+            observer.disconnect();
+        };
+    }, [citySlug]);
 
     const handleCTAClick = () => {
         window.open(WHATSAPP_LINK, '_blank');
